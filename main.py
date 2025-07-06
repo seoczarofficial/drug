@@ -21,15 +21,23 @@ def send_to_wordpress():
         "status": "publish"
     }
 
-    response = requests.post(
-        f"{WP_SITE}/wp-json/wp/v2/posts",
-        json=post_data,
-        auth=HTTPBasicAuth(WP_USER, WP_APP_PASSWORD)
-    )
-
-   
+    try:
+        response = requests.post(
+            f"{WP_SITE}/wp-json/wp/v2/posts",
+            json=post_data,
+            auth=HTTPBasicAuth(WP_USER, WP_APP_PASSWORD)
+        )
+        response.raise_for_status()
         return jsonify({
             "message": f"✅ '{drug_name}' was successfully posted to WordPress.",
             "wordpress_post_url": response.json().get("link")
         })
-  
+    except requests.exceptions.RequestException as e:
+        return jsonify({
+            "error": "❌ Failed to create post.",
+            "details": str(e),
+            "response": response.text if 'response' in locals() else None
+        }), 500
+
+if __name__ == "__main__":
+    app.run(debug=True)
