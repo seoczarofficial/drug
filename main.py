@@ -7,7 +7,7 @@ app = Flask(__name__)
 # Replace with your actual WordPress credentials
 WP_SITE = "https://reverent-keller.66-175-239-111.plesk.page"
 WP_USER = "akshay_6glzerdh"
-WP_APP_PASSWORD = "gKrXd7xVa?t4u^u2"
+WP_APP_PASSWORD = "ZIJ7jPcNvJBj1eq0tFFFKS5x"
 
 @app.route("/send-to-wordpress", methods=["POST"])
 def send_to_wordpress():
