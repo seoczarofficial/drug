@@ -27,7 +27,7 @@ def send_to_wordpress():
         auth=HTTPBasicAuth(WP_USER, WP_APP_PASSWORD)
     )
 
-    return jsonify({
-        "status": response.status_code,
-        "response": response.json()
-    })
+   return jsonify({
+    "message": f"✅ '{drug_name}' was successfully posted to WordPress.",
+    "wordpress_post_url": response.json().get("link")
+})
